@@ -1,6 +1,5 @@
 from network import Network
 import mnist_data_loader
-from test import Network1
 
 
 
