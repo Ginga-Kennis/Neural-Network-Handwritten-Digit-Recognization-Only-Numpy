@@ -1,11 +1,12 @@
 from network import Network
 import mnist_data_loader
+from test import Network1
 
 
 
-net = Network([784,30,10])
+net = Network([784,100,50,10])
 training_data,test_data = mnist_data_loader.create_data()
-net.SGD(training_data,30,10,3.0,test_data=test_data)
+net.SGD(training_data,100,10,0.25,test_data=test_data)
 
 """"""""""
 print('X_train: ' + str(train_X.shape))

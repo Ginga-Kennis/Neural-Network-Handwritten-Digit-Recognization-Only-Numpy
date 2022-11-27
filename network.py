@@ -33,6 +33,8 @@ class Network(object):
             for mini_batch in mini_batches:
                 self.update_mini_batch(mini_batch,eta)  #update the network weights and biases
 
+            #print(self.biases)
+            #print(self.weights)
             #Printing the training rate after each epoch
             if test_data:
                 print(f'Epoch {j} : {self.evaluate(test_data)} / {n_test} ')
@@ -52,6 +54,7 @@ class Network(object):
             nabla_w = [nw+dnw for nw,dnw in zip(nabla_w,delta_nabla_w)]
         self.weights = [w - (eta/len(mini_batch)) * nw for w,nw in zip(self.weights,nabla_w)]
         self.biases = [b - (eta / len(mini_batch)) * nb for b,nb in zip(self.biases, nabla_b)]
+
 
     def backprop(self,x,y):
         #x→training input[784*1],y→desired output[10*1]
@@ -92,15 +95,11 @@ class Network(object):
         return (nabla_b, nabla_w)
 
     def evaluate(self,test_data):
-        count = 0
-        for x,y in test_data:
-            assumption = np.argmax(self.feedforward(x))
-            if assumption == y:
-                count += 1
-        return count
+        test_results = [(np.argmax(self.feedforward(x)), y) for (x, y) in test_data]
+        return sum(int(x == y) for (x, y) in test_results)
 
     def cost_derivative(self,output_activations,y):
-        return (output_activartions - y)
+        return (output_activations - y)
 
 
 
