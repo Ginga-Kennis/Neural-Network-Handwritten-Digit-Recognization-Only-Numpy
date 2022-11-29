@@ -101,6 +101,10 @@ class Network(object):
     def cost_derivative(self,output_activations,y):
         return (output_activations - y)
 
+    def classify(self,input):
+        ans = self.feedforward(input)
+        return np.argmax(ans)
+
 
 
 
